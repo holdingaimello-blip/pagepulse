@@ -1,8 +1,16 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let _openai: OpenAI | null = null;
+
+function getOpenAI(): OpenAI | null {
+  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "sk-your-key-here") {
+    return null;
+  }
+  if (!_openai) {
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return _openai;
+}
 
 /**
  * Strip HTML tags and excessive whitespace to get clean text for comparison.
@@ -41,8 +49,8 @@ export async function analyzeChanges(
   const previousText = truncate(stripHtml(previousHtml));
   const currentText = truncate(stripHtml(currentHtml));
 
-  // Fallback if OpenAI API key is not configured
-  if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "sk-your-key-here") {
+  const openai = getOpenAI();
+  if (!openai) {
     return generateFallbackSummary(previousText, currentText);
   }
 

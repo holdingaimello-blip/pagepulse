@@ -1,16 +1,16 @@
-# DNS Setup for pagepulse.site
+# DNS Setup for pagepulse.eu
 
 ## Vercel DNS Configuration
 
-Add these records to your domain registrar's DNS settings for `pagepulse.site`:
+Add these records to your domain registrar's DNS settings for `pagepulse.eu`:
 
-### Root Domain (`pagepulse.site`)
+### Root Domain (`pagepulse.eu`)
 
 | Type | Name | Value | TTL |
 |------|------|-------|-----|
 | A | @ | `76.76.21.21` | 3600 |
 
-### WWW Subdomain (`www.pagepulse.site`)
+### WWW Subdomain (`www.pagepulse.eu`)
 
 | Type | Name | Value | TTL |
 |------|------|-------|-----|
@@ -20,12 +20,12 @@ Add these records to your domain registrar's DNS settings for `pagepulse.site`:
 
 1. **Add domain in Vercel:**
    - Go to your Vercel project → Settings → Domains
-   - Add `pagepulse.site`
+   - Add `pagepulse.eu`
    - Vercel will show you the required DNS records
 
 2. **Configure DNS at your registrar:**
    - Log into your domain registrar (Namecheap, Cloudflare, GoDaddy, etc.)
-   - Navigate to DNS management for `pagepulse.site`
+   - Navigate to DNS management for `pagepulse.eu`
    - Add the A record and CNAME record listed above
    - Remove any conflicting records (existing A or CNAME for @ or www)
 
@@ -35,7 +35,7 @@ Add these records to your domain registrar's DNS settings for `pagepulse.site`:
 
 4. **Verification:**
    - DNS propagation can take up to 48 hours (usually 5-30 minutes)
-   - Check propagation: `dig pagepulse.site` or use [dnschecker.org](https://dnschecker.org)
+   - Check propagation: `dig pagepulse.eu` or use [dnschecker.org](https://dnschecker.org)
    - Vercel dashboard will show a green checkmark when the domain is active
 
 ## Notes

@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       const response = await fetch(url, {
         headers: {
           "User-Agent":
-            "Mozilla/5.0 (compatible; PagePulse/1.0; +https://pagepulse.site)",
+            "Mozilla/5.0 (compatible; PagePulse/1.0; +https://pagepulse.eu)",
           Accept:
             "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         },

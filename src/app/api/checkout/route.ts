@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     const origin =
       request.headers.get("origin") ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://pagepulse.site";
+      "https://pagepulse.eu";
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",

@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@pagepulse.site"
+                  href="mailto:hello@pagepulse.eu"
                   className="text-sm text-slate-400 hover:text-white transition-colors"
                 >
                   Contact

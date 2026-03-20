@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://pagepulse.site",
+    url: "https://pagepulse.eu",
     siteName: "PagePulse",
     title: "PagePulse — AI-Powered Website Change Monitoring",
     description:
@@ -68,7 +68,7 @@ const jsonLd = {
   operatingSystem: "Web",
   description:
     "AI-powered website change monitoring and competitor intelligence platform. Track competitor websites, detect meaningful changes, and receive AI-generated intelligence reports.",
-  url: "https://pagepulse.site",
+  url: "https://pagepulse.eu",
   offers: [
     {
       "@type": "Offer",

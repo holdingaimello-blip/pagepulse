@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-navy-900 text-white;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-electric-400 to-electric-500 bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl;
+  }
+}

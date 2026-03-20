@@ -15,9 +15,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate URL format
-    let parsedUrl: URL;
     try {
-      parsedUrl = new URL(url);
+      const parsedUrl = new URL(url);
       if (!["http:", "https:"].includes(parsedUrl.protocol)) {
         throw new Error("Invalid protocol");
       }
@@ -34,8 +33,9 @@ export async function POST(request: NextRequest) {
       const response = await fetch(url, {
         headers: {
           "User-Agent":
-            "Mozilla/5.0 (compatible; PagePulse/1.0; +https://pagepulse.dev)",
-          Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Mozilla/5.0 (compatible; PagePulse/1.0; +https://pagepulse.site)",
+          Accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         },
         signal: AbortSignal.timeout(15000),
       });
@@ -67,15 +67,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get previous stored content
-    const previousContent = await getStoredContent(url);
+    // Get previous stored content/hash
+    const previousStored = await getStoredContent(url);
     const timestamp = new Date().toISOString();
 
-    // Store the current content for future comparisons
-    await storeContent(url, currentContent);
+    // Store the current content (also records change if applicable)
+    const { changed } = await storeContent(url, currentContent);
 
     // First time checking this URL
-    if (previousContent === null) {
+    if (previousStored === null) {
       return NextResponse.json({
         changed: false,
         summary:
@@ -84,8 +84,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Compare content
-    if (currentContent === previousContent) {
+    if (!changed) {
       return NextResponse.json({
         changed: false,
         summary: "No changes detected since last check.",
@@ -94,7 +93,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Content has changed — analyze with AI
-    const summary = await analyzeChanges(url, previousContent, currentContent);
+    // In local mode previousStored is raw content; in Supabase mode it's a hash.
+    // Use raw content comparison when available, otherwise provide minimal context.
+    const previousForAnalysis = previousStored.length > 128
+      ? previousStored
+      : `[Previous version - hash: ${previousStored}]`;
+
+    const summary = await analyzeChanges(url, previousForAnalysis, currentContent);
+
+    // Update the change record with the AI summary if using Supabase
+    await storeContent(url, currentContent, summary);
 
     return NextResponse.json({
       changed: true,

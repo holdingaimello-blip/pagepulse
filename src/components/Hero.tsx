@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="inline-flex items-center gap-2 bg-electric-500/10 border border-electric-500/20 rounded-full px-4 py-1.5 mb-8">
           <span className="w-2 h-2 bg-electric-400 rounded-full animate-pulse" />
           <span className="text-sm text-electric-400 font-medium">
-            Now monitoring 10,000+ competitor pages
+            pagepulse.site — Now monitoring 10,000+ competitor pages
           </span>
         </div>
 

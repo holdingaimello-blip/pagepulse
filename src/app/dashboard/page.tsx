@@ -176,7 +176,7 @@ export default function DashboardPage() {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             name: "PagePulse Dashboard",
-            url: "https://pagepulse.dev/dashboard",
+            url: "https://pagepulse.site/dashboard",
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
           }),

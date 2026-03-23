@@ -81,12 +81,9 @@ export default function Footer() {
                 <span className="text-sm text-slate-600">Careers (coming soon)</span>
               </li>
               <li>
-                <a
-                  href="mailto:hello@pagepulse.eu"
-                  className="text-sm text-slate-400 hover:text-white transition-colors"
-                >
-                  Contact
-                </a>
+                <Link href="/support" className="text-sm text-slate-400 hover:text-white transition-colors">
+                  Support
+                </Link>
               </li>
             </ul>
           </div>

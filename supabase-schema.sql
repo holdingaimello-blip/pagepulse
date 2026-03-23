@@ -40,3 +40,19 @@ CREATE INDEX idx_monitored_urls_user ON monitored_urls(user_id);
 CREATE INDEX idx_monitored_urls_status ON monitored_urls(status);
 CREATE INDEX idx_changes_url ON changes(monitored_url_id);
 CREATE INDEX idx_changes_detected ON changes(detected_at DESC);
+
+-- Support tickets
+CREATE TABLE support_tickets (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  email TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  message TEXT NOT NULL,
+  status TEXT DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'resolved', 'closed')),
+  ai_response TEXT,
+  ai_response_sent BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_support_tickets_email ON support_tickets(email);
+CREATE INDEX idx_support_tickets_status ON support_tickets(status);

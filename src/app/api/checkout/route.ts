@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { createSupabaseServer } from "@/lib/supabase-server";
 
 const PLAN_CONFIG = {
   pro: {
@@ -97,6 +98,12 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
+
+    // Get authenticated user
+    const supabase = await createSupabaseServer();
+    const { data: { user } } = await supabase.auth.getUser();
+    const customerEmail = user?.email || undefined;
+
     const priceId = await getOrCreatePrice(stripe, plan as PlanKey);
 
     const origin =
@@ -113,8 +120,9 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
+      customer_email: customerEmail,
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/pricing`,
+      cancel_url: `${origin}/#pricing`,
       metadata: {
         pagepulse_plan: plan,
       },

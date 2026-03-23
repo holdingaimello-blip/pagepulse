@@ -96,19 +96,17 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-3">
               <li>
-                <span className="text-sm text-slate-600">
-                  Privacy Policy (coming soon)
-                </span>
+                <Link href="/privacy" className="text-sm text-slate-400 hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-slate-600">
-                  Terms of Service (coming soon)
-                </span>
+                <Link href="/terms" className="text-sm text-slate-400 hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-slate-600">
-                  Cookie Policy (coming soon)
-                </span>
+                <span className="text-sm text-slate-600">Cookie Policy (coming soon)</span>
               </li>
             </ul>
           </div>

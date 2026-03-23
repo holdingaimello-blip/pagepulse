@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     // Fetch active monitored URLs, prioritizing those checked longest ago
     const { data: urls, error: fetchError } = await sb
       .from("monitored_urls")
-      .select("id, url, last_content_hash, last_checked_at")
+      .select("id, url, last_content_hash, last_checked_at, user_id")
       .eq("status", "active")
       .order("last_checked_at", { ascending: true, nullsFirst: true })
       .limit(MAX_URLS_PER_RUN);
@@ -123,6 +123,15 @@ export async function GET(request: NextRequest) {
             ai_summary: aiSummary,
             raw_diff_size: currentContent.length,
           });
+
+          // Create notification for the URL owner
+          if (entry.user_id) {
+            await sb.from("notifications").insert({
+              user_id: entry.user_id,
+              monitored_url_id: entry.id,
+              message: aiSummary || `Change detected on ${entry.url}`,
+            });
+          }
 
           results.push({ url: entry.url, changed: true });
         } else {

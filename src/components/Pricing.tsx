@@ -183,7 +183,7 @@ export default function Pricing() {
                 </button>
               ) : (
                 <Link
-                  href="/dashboard"
+                  href="/auth/signup"
                   className={`block text-center font-semibold py-3 px-6 rounded-xl transition-all mb-8 ${
                     plan.highlighted
                       ? "bg-electric-500 hover:bg-electric-600 text-white hover:shadow-lg hover:shadow-electric-500/25"

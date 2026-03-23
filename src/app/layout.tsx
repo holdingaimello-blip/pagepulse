@@ -80,10 +80,10 @@ const jsonLd = {
     {
       "@type": "Offer",
       name: "Pro",
-      price: "19",
+      price: "4.99",
       priceCurrency: "USD",
       billingDuration: "P1M",
-      description: "Monitor up to 25 URLs with hourly checks and AI reports",
+      description: "Monitor up to 5 URLs with daily checks and AI analysis",
     },
     {
       "@type": "Offer",
@@ -120,8 +120,5 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
-  );
-}
-
   );
 }

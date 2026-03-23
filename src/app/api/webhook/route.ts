@@ -74,8 +74,8 @@ export async function POST(request: NextRequest) {
         try {
           const { supabaseAdmin } = await import("@/lib/supabase");
           if (supabaseAdmin && customerEmail) {
-            const urlLimit = plan === "business" ? 999999 : plan === "pro" ? 25 : 3;
-            const checkInterval = plan === "business" ? 5 : plan === "pro" ? 60 : 1440;
+            const urlLimit = plan === "business" ? 25 : plan === "pro" ? 5 : 1;
+            const checkInterval = 1440; // Daily for all plans
 
             const { error } = await supabaseAdmin
               .from("users")

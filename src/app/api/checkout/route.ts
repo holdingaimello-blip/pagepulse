@@ -5,12 +5,12 @@ import { createSupabaseServer } from "@/lib/supabase-server";
 const PLAN_CONFIG = {
   pro: {
     name: "PagePulse Pro",
-    price: 1900, // $19.00 in cents
+    price: 499, // $4.99 in cents
     metadata: { pagepulse_plan: "pro" },
   },
   business: {
     name: "PagePulse Business",
-    price: 4900, // $49.00 in cents
+    price: 1499, // $14.99 in cents
     metadata: { pagepulse_plan: "business" },
   },
 } as const;

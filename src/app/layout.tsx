@@ -88,10 +88,10 @@ const jsonLd = {
     {
       "@type": "Offer",
       name: "Business",
-      price: "49",
+      price: "14.99",
       priceCurrency: "USD",
       billingDuration: "P1M",
-      description: "Unlimited URLs, real-time monitoring, API access, and priority support",
+      description: "Monitor up to 25 URLs with daily checks and priority support",
     },
   ],
   aggregateRating: {
@@ -120,5 +120,8 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+  );
+}
+
   );
 }

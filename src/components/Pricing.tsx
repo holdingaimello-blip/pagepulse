@@ -10,7 +10,7 @@ const plans = [
     period: "forever",
     description: "Perfect for getting started with competitor monitoring.",
     features: [
-      "Monitor up to 3 URLs",
+      "Monitor up to 1 URL",
       "Daily checks",
       "Basic change detection",
       "Email notifications",

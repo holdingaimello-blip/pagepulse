@@ -54,7 +54,7 @@ export default function DashboardPage() {
     if (!userData) {
       const { data: newUser } = await supabase
         .from("users")
-        .insert({ email: authUser.email, plan: "free", url_limit: 3, check_interval_minutes: 1440 })
+        .insert({ email: authUser.email, plan: "free", url_limit: 1, check_interval_minutes: 1440 })
         .select()
         .single();
       userData = newUser;

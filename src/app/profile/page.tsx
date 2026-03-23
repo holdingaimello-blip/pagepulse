@@ -136,7 +136,7 @@ export default function ProfilePage() {
   };
 
   const planLimits: Record<string, { urls: number; checks: string }> = {
-    free: { urls: 3, checks: "Daily" },
+    free: { urls: 1, checks: "Daily" },
     pro: { urls: 25, checks: "Hourly" },
     business: { urls: Infinity, checks: "Real-time (5min)" },
   };
@@ -249,7 +249,7 @@ export default function ProfilePage() {
               <p className="text-xs text-slate-400 mt-1">Changes Detected</p>
             </div>
             <div className="text-center p-4 bg-navy-900/30 rounded-xl">
-              <p className="text-2xl font-bold text-white">{user?.plan === "free" ? "3" : user?.plan === "pro" ? "25" : "∞"}</p>
+              <p className="text-2xl font-bold text-white">{user?.plan === "free" ? "1" : user?.plan === "pro" ? "25" : "∞"}</p>
               <p className="text-xs text-slate-400 mt-1">URL Limit</p>
             </div>
           </div>

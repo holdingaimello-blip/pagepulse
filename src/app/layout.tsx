@@ -75,7 +75,7 @@ const jsonLd = {
       name: "Free",
       price: "0",
       priceCurrency: "USD",
-      description: "Monitor up to 3 URLs with daily checks",
+      description: "Monitor up to 1 URL with daily checks",
     },
     {
       "@type": "Offer",

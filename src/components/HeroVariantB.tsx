@@ -8,7 +8,8 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export default function Hero() {
+// VARIANT B: Focus su perdita vendite / opportunità mancate
+export default function HeroVariantB() {
   const [url, setUrl] = useState("");
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"input" | "email" | "success">("input");
@@ -26,7 +27,6 @@ export default function Hero() {
     
     setLoading(true);
     
-    // Salva utente e URL in background
     try {
       const { data: userData, error: userError } = await supabase
         .from("users")
@@ -55,7 +55,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-electric-500/10 rounded-full blur-[128px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-red-500/10 rounded-full blur-[128px]" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-electric-600/5 rounded-full blur-[96px]" />
       </div>
 
@@ -70,46 +70,46 @@ export default function Hero() {
       />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-20">
-        {/* Badge - Use Case Specific */}
-        <div className="inline-flex items-center gap-2 bg-electric-500/10 border border-electric-500/20 rounded-full px-4 py-1.5 mb-8">
-          <span className="w-2 h-2 bg-electric-400 rounded-full animate-pulse" />
-          <span className="text-sm text-electric-400 font-medium">
-            Used by 340+ e-commerce teams to track competitor prices
+        {/* Alert Badge */}
+        <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-1.5 mb-8">
+          <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
+          <span className="text-sm text-red-400 font-medium">
+            ⚠️ 73% of lost sales happen because you react too late
           </span>
         </div>
 
-        {/* Headline - Value Prop Shift A */}
+        {/* Headline - Value Prop Shift B */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6">
-          Get Alerted When Competitors
+          Stop Losing Sales to
           <br />
-          <span className="gradient-text">Change Their Prices</span>
+          <span className="text-red-400">Competitor Price Cuts</span>
         </h1>
 
-        {/* Subheadline - Specific Pain Point */}
+        {/* Subheadline - Pain Point */}
         <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Your competitor just dropped prices by 20%. While you&apos;re sleeping.
+          By the time you notice their price drop, your customers have already switched.
           <br />
           <span className="text-white font-medium">
-            PagePulse watches 24/7. You wake up informed.
+            Get alerted in minutes, not days.
           </span>
         </p>
 
-        {/* Interactive Input - Friction Removal */}
+        {/* Interactive Input */}
         <div className="max-w-xl mx-auto mb-16">
           {step === "input" && (
             <form onSubmit={handleStart} className="relative">
               <input
                 type="text"
-                placeholder="Enter competitor URL (e.g., amazon.com/product)"
+                placeholder="Enter competitor URL to monitor"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-5 text-lg placeholder:text-slate-500 focus:outline-none focus:border-electric-500/50 focus:ring-2 focus:ring-electric-500/20 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-5 text-lg placeholder:text-slate-500 focus:outline-none focus:border-red-500/50 focus:ring-2 focus:ring-red-500/20 transition-all"
               />
               <button
                 type="submit"
-                className="absolute right-2 top-2 bottom-2 bg-electric-500 hover:bg-electric-600 text-white font-semibold px-6 rounded-lg transition-all"
+                className="absolute right-2 top-2 bottom-2 bg-red-500 hover:bg-red-600 text-white font-semibold px-6 rounded-lg transition-all"
               >
-                Start Monitoring →
+                Protect My Sales →
               </button>
             </form>
           )}
@@ -117,20 +117,20 @@ export default function Hero() {
           {step === "email" && (
             <form onSubmit={handleMonitor} className="relative">
               <div className="text-left mb-3 text-sm text-slate-400">
-                Monitoring: <span className="text-electric-400">{url}</span>
+                Monitoring: <span className="text-red-400">{url}</span>
               </div>
               <input
                 type="email"
-                placeholder="Your email (we'll send alerts here)"
+                placeholder="Your email for instant alerts"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-5 text-lg placeholder:text-slate-500 focus:outline-none focus:border-electric-500/50 focus:ring-2 focus:ring-electric-500/20 transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-5 text-lg placeholder:text-slate-500 focus:outline-none focus:border-red-500/50 focus:ring-2 focus:ring-red-500/20 transition-all"
                 autoFocus
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="absolute right-2 top-[2.25rem] bottom-2 bg-electric-500 hover:bg-electric-600 text-white font-semibold px-6 rounded-lg transition-all disabled:opacity-50"
+                className="absolute right-2 top-[2.25rem] bottom-2 bg-red-500 hover:bg-red-600 text-white font-semibold px-6 rounded-lg transition-all disabled:opacity-50"
               >
                 {loading ? "..." : "Activate Free →"}
               </button>
@@ -139,20 +139,20 @@ export default function Hero() {
 
           {step === "success" && (
             <div className="bg-green-500/10 border border-green-500/20 rounded-xl px-6 py-5">
-              <div className="text-green-400 font-semibold text-lg">✓ Monitoring Activated</div>
+              <div className="text-green-400 font-semibold text-lg">✓ Protection Active</div>
               <p className="text-slate-400 text-sm mt-1">
-                You&apos;ll receive your first alert within 24 hours at {email}
+                You'll be alerted within minutes of any price change at {email}
               </p>
             </div>
           )}
         </div>
 
-        {/* Use Case Examples */}
+        {/* Loss Prevention Examples */}
         <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12 text-left">
           {[
-            { icon: "💰", title: "Price Drops", desc: "Instant alerts when competitors slash prices" },
-            { icon: "🚀", title: "New Features", desc: "Know when they launch before your customers do" },
-            { icon: "📢", title: "Messaging Changes", desc: "Track positioning and copy updates" },
+            { icon: "⚡", title: "Minute Alerts", desc: "Know about price changes in under 60 minutes" },
+            { icon: "🛡️", title: "Loss Prevention", desc: "React before customers start comparing" },
+            { icon: "📊", title: "Win Rate +34%", desc: "Teams using alerts close more deals" },
           ].map((item, i) => (
             <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
               <div className="text-2xl mb-2">{item.icon}</div>
@@ -162,11 +162,11 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Social Proof - Realistic */}
+        {/* Social Proof */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-slate-500">
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
-              {["bg-blue-500", "bg-green-500", "bg-purple-500", "bg-amber-500"].map(
+              {["bg-red-500", "bg-orange-500", "bg-amber-500", "bg-yellow-500"].map(
                 (color, i) => (
                   <div
                     key={i}
@@ -177,7 +177,7 @@ export default function Hero() {
                 )
               )}
             </div>
-            <span>Trusted by 340+ e-commerce teams</span>
+            <span>340+ sales teams protected</span>
           </div>
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (

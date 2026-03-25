@@ -1,12 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { useState, useEffect } from "react";
 
 // VARIANT B: Focus su perdita vendite / opportunità mancate
 export default function HeroVariantB() {
@@ -14,6 +8,22 @@ export default function HeroVariantB() {
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"input" | "email" | "success">("input");
   const [loading, setLoading] = useState(false);
+  const [supabase, setSupabase] = useState<any>(null);
+
+  // Lazy load Supabase client
+  useEffect(() => {
+    const initSupabase = async () => {
+      if (typeof window !== 'undefined') {
+        const { createClient } = await import("@supabase/supabase-js");
+        const client = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+        );
+        setSupabase(client);
+      }
+    };
+    initSupabase();
+  }, []);
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,24 +37,26 @@ export default function HeroVariantB() {
     
     setLoading(true);
     
-    try {
-      const { data: userData, error: userError } = await supabase
-        .from("users")
-        .insert([{ email, plan: "free", url_limit: 1 }])
-        .select()
-        .single();
+    if (supabase) {
+      try {
+        const { data: userData, error: userError } = await supabase
+          .from("users")
+          .insert([{ email, plan: "free", url_limit: 1 }])
+          .select()
+          .single();
 
-      if (userData) {
-        await supabase.from("monitored_urls").insert([
-          {
-            user_id: userData.id,
-            url: url.startsWith("http") ? url : `https://${url}`,
-            status: "active",
-          },
-        ]);
+        if (userData) {
+          await supabase.from("monitored_urls").insert([
+            {
+              user_id: userData.id,
+              url: url.startsWith("http") ? url : `https://${url}`,
+              status: "active",
+            },
+          ]);
+        }
+      } catch (err) {
+        console.error("Error:", err);
       }
-    } catch (err) {
-      console.error("Error:", err);
     }
 
     setLoading(false);

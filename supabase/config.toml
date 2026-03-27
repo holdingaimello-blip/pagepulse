@@ -1,0 +1,11 @@
+[functions.linkedin-callback]
+enabled = true
+verify_jwt = false
+
+[functions.linkedin-post]
+enabled = true
+verify_jwt = false
+
+[functions.linkedin-refresh]
+enabled = true
+verify_jwt = false

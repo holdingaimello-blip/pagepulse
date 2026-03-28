@@ -154,6 +154,7 @@ const plans = [
     ],
     cta: "Start Free",
     highlighted: false,
+    comingSoon: false,
   },
   {
     name: "Pro",
@@ -167,8 +168,9 @@ const plans = [
       "Email notifications",
       "90-day change history",
     ],
-    cta: "Start Pro Trial",
+    cta: "Coming Soon",
     highlighted: true,
+    comingSoon: true,
   },
   {
     name: "Business",
@@ -183,8 +185,9 @@ const plans = [
       "Unlimited change history",
       "Priority support",
     ],
-    cta: "Start Business Trial",
+    cta: "Coming Soon",
     highlighted: false,
+    comingSoon: true,
   },
 ];
 
@@ -227,15 +230,16 @@ export default function Pricing() {
               <p style={styles.description}>{plan.description}</p>
 
               <button
-                onClick={() => handleCheckout(plan.name)}
-                disabled={loading === plan.name}
+                onClick={() => !plan.comingSoon && handleCheckout(plan.name)}
+                disabled={loading === plan.name || plan.comingSoon}
                 style={{
                   ...styles.button,
                   ...(plan.highlighted ? styles.buttonPrimary : styles.buttonSecondary),
-                  opacity: loading === plan.name ? 0.5 : 1,
+                  opacity: loading === plan.name || plan.comingSoon ? 0.5 : 1,
+                  cursor: plan.comingSoon ? "not-allowed" : "pointer",
                 }}
               >
-                {loading === plan.name ? "Loading..." : plan.cta}
+                {plan.cta}
               </button>
 
               <ul style={styles.features}>

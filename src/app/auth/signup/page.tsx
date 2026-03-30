@@ -1,4 +1,13 @@
+"use client";
+
+import { useEffect } from "react";
+import { analytics } from "../../../lib/analytics";
+
 export default function SignupPage() {
+  useEffect(() => {
+    analytics.signupStarted();
+  }, []);
+
   return (
     <div style={{ 
       minHeight: "100vh", 

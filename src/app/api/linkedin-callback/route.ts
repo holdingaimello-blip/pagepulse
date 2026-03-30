@@ -56,16 +56,15 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const profile = await profileResponse.json();
-
-    // Save tokens to Master DB
+    // Save tokens to Master DB (user_id from state param)
+    const userId = state || "mello";
     const master = createClient(MASTER_SUPABASE_URL, MASTER_SUPABASE_KEY);
 
     const { error: dbError } = await master
       .from("linkedin_tokens")
       .upsert({
-        user_id: "mello", // Your identifier
-        linkedin_id: profile.id,
+        user_id: userId,
+        linkedin_id: userId,
         access_token: access_token,
         refresh_token: refresh_token,
         expires_at: new Date(Date.now() + expires_in * 1000).toISOString(),

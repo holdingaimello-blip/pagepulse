@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Analytics } from "@vercel/analytics/react";
-import { AnalyticsTracker } from "../components/AnalyticsTracker";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pagepulse.dev"),
@@ -117,7 +116,6 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-navy-900 text-white antialiased">
-        <AnalyticsTracker />
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { analytics } from "../../../lib/analytics";
 
 export default function SignupPage() {
   useEffect(() => {
-    analytics.signupStarted();
+    // Track signup started
+    if (typeof window !== "undefined") {
+      import("../../../lib/analytics").then(({ analytics }) => {
+        analytics.signupStarted();
+      });
+    }
   }, []);
 
   return (

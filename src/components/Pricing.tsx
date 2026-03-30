@@ -168,9 +168,9 @@ const plans = [
       "Email notifications",
       "90-day change history",
     ],
-    cta: "Coming Soon",
+    cta: "Start Pro Trial",
     highlighted: true,
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     name: "Business",
@@ -185,9 +185,9 @@ const plans = [
       "Unlimited change history",
       "Priority support",
     ],
-    cta: "Coming Soon",
+    cta: "Start Business Trial",
     highlighted: false,
-    comingSoon: true,
+    comingSoon: false,
   },
 ];
 
@@ -195,10 +195,33 @@ export default function Pricing() {
   const [loading, setLoading] = useState<string | null>(null);
 
   async function handleCheckout(planName: string) {
+    if (planName === "Free") {
+      window.location.href = "/auth/signup";
+      return;
+    }
+    
     setLoading(planName);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    alert("Checkout simulation - Stripe integration needed");
-    setLoading(null);
+    
+    try {
+      const plan = planName.toLowerCase();
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || "Checkout failed");
+        setLoading(null);
+      }
+    } catch (error) {
+      alert("Checkout error. Please try again.");
+      setLoading(null);
+    }
   }
 
   return (

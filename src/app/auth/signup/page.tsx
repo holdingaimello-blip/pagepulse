@@ -5,11 +5,11 @@ import { useEffect } from "react";
 export default function SignupPage() {
   useEffect(() => {
     // Track signup started
-    if (typeof window !== "undefined") {
-      import("../../../lib/analytics").then(({ analytics }) => {
-        analytics.signupStarted();
-      });
-    }
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_type: "signup_started" }),
+    }).catch(console.error);
   }, []);
 
   return (

@@ -1,9 +1,11 @@
-import { createClient } from "@supabase/supabase-js";
+// Server-side analytics client
+// Calls /api/track endpoint for reliable tracking
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+const API_URL = typeof window !== "undefined" 
+  ? "/api/track" 
+  : process.env.NEXT_PUBLIC_APP_URL 
+    ? `${process.env.NEXT_PUBLIC_APP_URL}/api/track`
+    : "https://pagepulse.eu/api/track";
 
 // Generate session ID
 function getSessionId(): string {
@@ -17,35 +19,43 @@ function getSessionId(): string {
 }
 
 // Get UTM params from URL
-function getUtmParams() {
+function getUtmParams(): Record<string, string> {
   if (typeof window === "undefined") return {};
   const params = new URLSearchParams(window.location.search);
-  return {
-    utm_source: params.get("utm_source") || undefined,
-    utm_medium: params.get("utm_medium") || undefined,
-    utm_campaign: params.get("utm_campaign") || undefined,
-  };
+  const result: Record<string, string> = {};
+  const source = params.get("utm_source");
+  const medium = params.get("utm_medium");
+  const campaign = params.get("utm_campaign");
+  if (source) result.utm_source = source;
+  if (medium) result.utm_medium = medium;
+  if (campaign) result.utm_campaign = campaign;
+  return result;
 }
 
-// Track event
-export async function trackEvent(
+// Track event via API
+async function trackEvent(
   eventType: string,
   metadata: Record<string, any> = {}
-) {
+): Promise<void> {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    await supabase.from("analytics_events").insert({
-      event_type: eventType,
-      user_id: user?.id,
-      session_id: getSessionId(),
-      page_url: typeof window !== "undefined" ? window.location.href : undefined,
-      referrer: typeof document !== "undefined" ? document.referrer : undefined,
-      ...getUtmParams(),
-      metadata,
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_type: eventType,
+        session_id: getSessionId(),
+        page_url: typeof window !== "undefined" ? window.location.href : undefined,
+        referrer: typeof document !== "undefined" ? document.referrer : undefined,
+        ...getUtmParams(),
+        metadata,
+      }),
     });
+
+    if (!response.ok) {
+      console.error("Analytics error:", await response.text());
+    }
   } catch (error) {
-    console.error("Analytics error:", error);
+    console.error("Analytics tracking failed:", error);
   }
 }
 

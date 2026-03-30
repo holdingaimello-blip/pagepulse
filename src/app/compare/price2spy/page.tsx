@@ -12,7 +12,7 @@ export default function Page() {
         <li>✅ 10x cheaper than Price2Spy</li>
       </ul>
       
-      <a href="https://pagepulse-v2.vercel.app?utm_source=compare&utm_medium=seo&utm_campaign=vs-price2spy" 
+      <a href="https://pagepulse.eu?utm_source=compare&utm_medium=seo&utm_campaign=vs-price2spy" 
          style={{ display: 'inline-block', backgroundColor: '#3b82f6', color: 'white', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', textDecoration: 'none' }}>
         Start Free →
       </a>

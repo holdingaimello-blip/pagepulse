@@ -6,12 +6,12 @@ const PLAN_CONFIG = {
   pro: {
     name: "PagePulse Pro",
     price: 499, // $4.99 in cents
-    metadata: { pagepulse_plan: "pro" },
+    metadata: { project_id: "pagepulse", plan: "pro" },
   },
   business: {
     name: "PagePulse Business",
     price: 1499, // $14.99 in cents
-    metadata: { pagepulse_plan: "business" },
+    metadata: { project_id: "pagepulse", plan: "business" },
   },
 } as const;
 
@@ -39,7 +39,7 @@ async function getOrCreatePrice(
 
   // Search for existing product by metadata
   const products = await stripe.products.search({
-    query: `metadata["pagepulse_plan"]:"${plan}"`,
+    query: `metadata["project_id"]:"pagepulse" AND metadata["plan"]:"${plan}"`,
   });
 
   let productId: string;
@@ -124,7 +124,8 @@ export async function POST(request: NextRequest) {
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#pricing`,
       metadata: {
-        pagepulse_plan: plan,
+        project_id: "pagepulse",
+        plan: plan,
       },
     });
 

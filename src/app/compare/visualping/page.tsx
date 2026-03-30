@@ -63,7 +63,7 @@ export default function PagePulseVsVisualping() {
         <h3>Try PagePulse Free</h3>
         <p>Start with 1 URL free. No credit card required.</p>
         <a 
-          href="https://pagepulse-v2.vercel.app?utm_source=compare&utm_medium=seo&utm_campaign=vs-visualping"
+          href="https://pagepulse.eu?utm_source=compare&utm_medium=seo&utm_campaign=vs-visualping"
           style={{ 
             display: 'inline-block', 
             backgroundColor: '#3b82f6', 

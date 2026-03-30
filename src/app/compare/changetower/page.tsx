@@ -9,7 +9,7 @@ export default function PagePulseVsChangeTower() {
         <li>No AI analysis of changes</li>
         <li>Basic notification system</li>
       </ul>
-      <a href="https://pagepulse-v2.vercel.app?utm_source=compare&utm_medium=seo&utm_campaign=vs-changetower" style={{ color: '#60a5fa' }}>Try PagePulse Free →</a>
+      <a href="https://pagepulse.eu?utm_source=compare&utm_medium=seo&utm_campaign=vs-changetower" style={{ color: '#60a5fa' }}>Try PagePulse Free →</a>
     </div>
   );
 }
